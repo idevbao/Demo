@@ -15,6 +15,7 @@ class CellSongGenes: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
     func setUIPlay(dataTrack: DataTrack) {
         guard let link =  dataTrack.artworkUrl else {
             return
