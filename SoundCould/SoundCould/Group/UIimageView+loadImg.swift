@@ -10,9 +10,8 @@ import UIKit
 import Kingfisher
 extension UIImageView {
     func setImageFromURL(urlLink: String) {
-        guard let url = URL(string: urlLink)
-            else {
-                return
+        guard let url = URL(string: urlLink) else {
+            return
         }
         self.kf.setImage(with: url)
     }

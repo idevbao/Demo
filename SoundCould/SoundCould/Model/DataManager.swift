@@ -7,102 +7,92 @@
 //
 
 import UIKit
+import Alamofire
 
 class DataManager: NSObject {
     static let sharedInstance = DataManager()
     var dicIDGenre = [String: [DataGenres]] ()
     var dicTrackGenre = [String: [DataTrack]] ()
-    
+    var params = [String: Any]()
     func getDataID(arrayGenre: [String], quantity: Int,
                    completion: @escaping ([String: [DataTrack]]?) -> Void ) {
         for name in arrayGenre {
-            let url = "\(Key.link)\(name)\(Key.key)\(quantity)"
-            guard let urllink = URL(string: url) else {
-                completion(nil)
-                return
-            }
-            URLSessionAPI.getData(url: urllink) {[weak self] (data, err) in
-                guard let dataRequest = data, err == nil else {
-                    print("API Get data fail ")
-                    completion(nil)
-                    return
-                }
-                do {
-                    guard let jsonDictionary = try JSONSerialization.jsonObject(
-                        with: dataRequest,
-                        options: JSONSerialization.ReadingOptions.mutableContainers)
-                        as? [String: AnyObject] else {
-                            completion(nil)
-                            return
-                    }
-                    guard let jsonArray = jsonDictionary[ "collection" ]  as? [[String: AnyObject]] else {
-                        completion(nil)
-                        return
-                    }
-                    var itemID = [Int]()
-                    for items in jsonArray {
-                        guard let item = DataGenres(JSON: items)?.id else {
-                            completion(nil)
-                            return
-                        }
-                        itemID.append(item)
-                    }
-                    self?.getDataTrack(arrID: itemID, name: name, completionHandler: {[weak self] (data) in
-                        completion(data)
-                    })
-                } catch {
-                    print("Pass [myData] Fail")
-                    completion(nil)
-                }
+            params = ["kind": Key.kind, "genre": "\(Key.genre)\(name)",
+                "client_id": Key.clientId, "limit": quantity]
+            Alamofire.request(Key.path, method: .get, parameters: params,
+                              encoding: URLEncoding.default, headers: nil).responseJSON { [weak self] response in
+                                guard let `self` = self else {
+                                    return
+                                }
+                                switch response.result {
+                                case .success:
+                                    guard let jsonDictionary = response.value as? [String: Any] else {
+                                        completion(nil)
+                                        return
+                                    }
+                                    guard let jsonArray = jsonDictionary["collection"] as? [[String: AnyObject]]  else {
+                                        completion(nil)
+                                        return
+                                    }
+                                    var itemID = [Int]()
+                                    for item in jsonArray {
+                                        guard let item = DataGenres(JSON: item)?.id else {
+                                            completion(nil)
+                                            return
+                                        }
+                                        itemID.append(item)
+                                    }
+                                    self.getDataTrack(arrIdTrack: itemID, name: name, completionHandler: {(data) in
+                                        completion(data)
+                                    })
+                                case .failure:
+                                    completion(nil)
+                                }
+                                
             }
         }
     }
     
-    func getDataTrack(arrID: [Int], name: String, completionHandler: @escaping ([String: [DataTrack]]?) -> Void ) {
+    func getDataTrack(arrIdTrack: [Int], name: String, completionHandler: @escaping ([String: [DataTrack]]?) -> Void ) {
         DispatchQueue.global(qos: .userInitiated).async {
             let downloadGroup = DispatchGroup()
             var songs = [DataTrack]()
-            for id in arrID {
-                guard let urllink = URL(string: "\(Key.linkTrack)\(id)\(Key.keyTrack)") else {
-                    completionHandler(nil)
-                    return
-                }
+            for id in arrIdTrack {
                 downloadGroup.enter()
-                URLSessionAPI.getData(url: urllink) {(data, err) in
-                    guard let dataRequest = data, err == nil else {
-                        downloadGroup.leave()
-                        completionHandler(nil)
-                        print("URLSessionAPI  get  data fail ")
-                        return
-                    }
-                    do {
-                        let jsonArray = try JSONSerialization.jsonObject(with: dataRequest,
-                                                                         options:
-                            JSONSerialization.ReadingOptions.mutableContainers)
-                        guard let items = jsonArray as? [String: AnyObject] else {
-                            completionHandler(nil)
-                            downloadGroup.leave()
-                            return
-                        }
-                        guard let item = DataTrack(JSON: items) else {
-                            completionHandler(nil)
-                            downloadGroup.leave()
-                            return
-                        }
-                        songs.append(item)
-                        downloadGroup.leave()
-                    } catch {
-                        completionHandler(nil)
-                        downloadGroup.leave()
-                        print("Pass  GetDataTrack [myData] Fail")
-                    }
+                let pathsong = "\(Key.pathTrack)\(id)"
+                let paramsong = ["client_id": Key.clientId]
+                Alamofire.request(pathsong, method: .get, parameters: paramsong,
+                                  encoding: URLEncoding.default, headers: nil).responseJSON { response in
+                                    switch response.result {
+                                    case .success:
+                                        guard let jsonDictionary = response.value as? [String: Any] else {
+                                            downloadGroup.leave()
+                                            completionHandler(nil)
+                                            return
+                                        }
+                                        guard let item = DataTrack(JSON: jsonDictionary) else {
+                                            downloadGroup.leave()
+                                            completionHandler(nil)
+                                            return
+                                        }
+                                        songs.append(item)
+                                        downloadGroup.leave()
+                                        
+                                    case .failure(let error):
+                                        print(error)
+                                        downloadGroup.leave()
+                                    }
                 }
             }
             downloadGroup.wait()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async {[weak self] in
+                guard let `self` = self else {
+                    return
+                }
                 self.dicTrackGenre.updateValue(songs, forKey: name)
                 completionHandler(self.dicTrackGenre)
             }
+            
         }
     }
 }
