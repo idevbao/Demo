@@ -10,15 +10,24 @@
 		221581EE3EB7AA08F0AEE9C9 /* Pods_SoundCould.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FE76DF675E7276526C3D0D /* Pods_SoundCould.framework */; };
 		E50410E120AE74940028CC24 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50410E020AE74940028CC24 /* HomeViewController.swift */; };
 		E50410E320AE74EF0028CC24 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E50410E220AE74EF0028CC24 /* Home.storyboard */; };
-		E50410F320AEACE90028CC24 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50410F220AEACE90028CC24 /* Genre.swift */; };
+		E50410EB20AE860C0028CC24 /* CellSongGenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50410E920AE860C0028CC24 /* CellSongGenes.swift */; };
+		E50410EC20AE860C0028CC24 /* CellSongGenes.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50410EA20AE860C0028CC24 /* CellSongGenes.xib */; };
+		E50410EF20AEA4480028CC24 /* CellGenesHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50410ED20AEA4480028CC24 /* CellGenesHome.swift */; };
+		E50410F020AEA4480028CC24 /* CellGenesHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50410EE20AEA4480028CC24 /* CellGenesHome.xib */; };
 		E51FBCA520AD537500CAECB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FBCA420AD537500CAECB8 /* AppDelegate.swift */; };
 		E51FBCAF20AD537600CAECB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E51FBCAD20AD537600CAECB8 /* LaunchScreen.storyboard */; };
+		E53DD52420BEC47800A700E1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DD52220BEC47800A700E1 /* Constants.swift */; };
+		E53DD52520BEC47800A700E1 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DD52320BEC47800A700E1 /* Key.swift */; };
 		E55CCDD720B2CA28006E87D9 /* UIimageView+loadImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CCDD620B2CA28006E87D9 /* UIimageView+loadImg.swift */; };
-		E5CDA5F720B6C4AE00C0A56E /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CDA5F620B6C4AE00C0A56E /* Key.swift */; };
+		E58F62F020AEE34D003578DE /* Genre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E58F62EF20AEE34D003578DE /* Genre.storyboard */; };
+		E58F62F220AEE587003578DE /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F62F120AEE587003578DE /* GenreViewController.swift */; };
+		E58F62F620AEE862003578DE /* GenreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F62F520AEE862003578DE /* GenreCell.swift */; };
+		E5B5F5F120B6A3D400CE414D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B5F5F020B6A3D400CE414D /* AudioToolbox.framework */; };
 		E5DA374C20AD5E3000466C8A /* DataGenres.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA374B20AD5E3000466C8A /* DataGenres.swift */; };
 		E5DA374E20AD5F3400466C8A /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA374D20AD5F3300466C8A /* DataManager.swift */; };
-		E5DA375020AD5FA400466C8A /* URLSessionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA374F20AD5FA400466C8A /* URLSessionAPI.swift */; };
 		E5DA375220AD8E4800466C8A /* DataTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA375120AD8E4800466C8A /* DataTrack.swift */; };
+		E5E5134F20AFBDD1002A88E5 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5134D20AFBDD1002A88E5 /* PlayViewController.swift */; };
+		E5E5135020AFBDD1002A88E5 /* PlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E5134E20AFBDD1002A88E5 /* PlayViewController.xib */; };
 		E5E5135220AFC1F4002A88E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E5135120AFC1F4002A88E5 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -28,17 +37,27 @@
 		D7FE76DF675E7276526C3D0D /* Pods_SoundCould.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoundCould.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50410E020AE74940028CC24 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E50410E220AE74EF0028CC24 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
-		E50410F220AEACE90028CC24 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		E50410E920AE860C0028CC24 /* CellSongGenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSongGenes.swift; sourceTree = "<group>"; };
+		E50410EA20AE860C0028CC24 /* CellSongGenes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellSongGenes.xib; sourceTree = "<group>"; };
+		E50410ED20AEA4480028CC24 /* CellGenesHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellGenesHome.swift; sourceTree = "<group>"; };
+		E50410EE20AEA4480028CC24 /* CellGenesHome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellGenesHome.xib; sourceTree = "<group>"; };
 		E51FBCA120AD537500CAECB8 /* SoundCould.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundCould.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E51FBCA420AD537500CAECB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E51FBCAE20AD537600CAECB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E51FBCB020AD537600CAECB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E53DD52220BEC47800A700E1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E53DD52320BEC47800A700E1 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		E55CCDD620B2CA28006E87D9 /* UIimageView+loadImg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIimageView+loadImg.swift"; sourceTree = "<group>"; };
-		E5CDA5F620B6C4AE00C0A56E /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		E58F62EF20AEE34D003578DE /* Genre.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Genre.storyboard; sourceTree = "<group>"; };
+		E58F62F120AEE587003578DE /* GenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
+		E58F62F520AEE862003578DE /* GenreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCell.swift; sourceTree = "<group>"; };
+		E5B5F5F020B6A3D400CE414D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E5B5F5F220B6A3D400CE414D /* SoundCould.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SoundCould.entitlements; sourceTree = "<group>"; };
 		E5DA374B20AD5E3000466C8A /* DataGenres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataGenres.swift; sourceTree = "<group>"; };
 		E5DA374D20AD5F3300466C8A /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		E5DA374F20AD5FA400466C8A /* URLSessionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionAPI.swift; sourceTree = "<group>"; };
 		E5DA375120AD8E4800466C8A /* DataTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTrack.swift; sourceTree = "<group>"; };
+		E5E5134D20AFBDD1002A88E5 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
+		E5E5134E20AFBDD1002A88E5 /* PlayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayViewController.xib; sourceTree = "<group>"; };
 		E5E5135120AFC1F4002A88E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,6 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				221581EE3EB7AA08F0AEE9C9 /* Pods_SoundCould.framework in Frameworks */,
+				E5B5F5F120B6A3D400CE414D /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +77,7 @@
 		9F1351B3862572DF36B266AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E5B5F5F020B6A3D400CE414D /* AudioToolbox.framework */,
 				D7FE76DF675E7276526C3D0D /* Pods_SoundCould.framework */,
 			);
 			name = Frameworks;
@@ -71,14 +92,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		E50410F120AEACB80028CC24 /* Key */ = {
+		E50410E420AE7AA40028CC24 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				E5CDA5F620B6C4AE00C0A56E /* Key.swift */,
-				E50410F220AEACE90028CC24 /* Genre.swift */,
+				E58F62F420AEE82F003578DE /* CellGenre */,
+				E58F62F320AEE822003578DE /* CellHome */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		E50410F120AEACB80028CC24 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				E53DD52220BEC47800A700E1 /* Constants.swift */,
+				E53DD52320BEC47800A700E1 /* Key.swift */,
 				E55CCDD620B2CA28006E87D9 /* UIimageView+loadImg.swift */,
 			);
-			path = Key;
+			path = Group;
 			sourceTree = "<group>";
 		};
 		E51FBC9820AD537500CAECB8 = {
@@ -103,7 +133,8 @@
 		E51FBCA320AD537500CAECB8 /* SoundCould */ = {
 			isa = PBXGroup;
 			children = (
-				E50410F120AEACB80028CC24 /* Key */,
+				E5B5F5F220B6A3D400CE414D /* SoundCould.entitlements */,
+				E50410F120AEACB80028CC24 /* Group */,
 				E51FBCC020AD599300CAECB8 /* Model */,
 				E51FBCBD20AD569C00CAECB8 /* View */,
 				E51FBCBC20AD567400CAECB8 /* Apdelegate */,
@@ -122,7 +153,10 @@
 		E51FBCBD20AD569C00CAECB8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E5E5134C20AFBC73002A88E5 /* Play */,
+				E58F62EA20AEE1EC003578DE /* Genre */,
 				E51FBCBE20AD56A700CAECB8 /* Home */,
+				E50410E420AE7AA40028CC24 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,9 +186,45 @@
 				E5DA374B20AD5E3000466C8A /* DataGenres.swift */,
 				E5DA375120AD8E4800466C8A /* DataTrack.swift */,
 				E5DA374D20AD5F3300466C8A /* DataManager.swift */,
-				E5DA374F20AD5FA400466C8A /* URLSessionAPI.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E58F62EA20AEE1EC003578DE /* Genre */ = {
+			isa = PBXGroup;
+			children = (
+				E58F62EF20AEE34D003578DE /* Genre.storyboard */,
+				E58F62F120AEE587003578DE /* GenreViewController.swift */,
+			);
+			path = Genre;
+			sourceTree = "<group>";
+		};
+		E58F62F320AEE822003578DE /* CellHome */ = {
+			isa = PBXGroup;
+			children = (
+				E50410E920AE860C0028CC24 /* CellSongGenes.swift */,
+				E50410EA20AE860C0028CC24 /* CellSongGenes.xib */,
+				E50410ED20AEA4480028CC24 /* CellGenesHome.swift */,
+				E50410EE20AEA4480028CC24 /* CellGenesHome.xib */,
+			);
+			path = CellHome;
+			sourceTree = "<group>";
+		};
+		E58F62F420AEE82F003578DE /* CellGenre */ = {
+			isa = PBXGroup;
+			children = (
+				E58F62F520AEE862003578DE /* GenreCell.swift */,
+			);
+			path = CellGenre;
+			sourceTree = "<group>";
+		};
+		E5E5134C20AFBC73002A88E5 /* Play */ = {
+			isa = PBXGroup;
+			children = (
+				E5E5134D20AFBDD1002A88E5 /* PlayViewController.swift */,
+				E5E5134E20AFBDD1002A88E5 /* PlayViewController.xib */,
+			);
+			path = Play;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +263,14 @@
 					E51FBCA020AD537500CAECB8 = {
 						CreatedOnToolsVersion = 9.3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -219,9 +297,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E50410F020AEA4480028CC24 /* CellGenesHome.xib in Resources */,
+				E50410EC20AE860C0028CC24 /* CellSongGenes.xib in Resources */,
 				E50410E320AE74EF0028CC24 /* Home.storyboard in Resources */,
+				E5E5135020AFBDD1002A88E5 /* PlayViewController.xib in Resources */,
 				E5E5135220AFC1F4002A88E5 /* Assets.xcassets in Resources */,
 				E51FBCAF20AD537600CAECB8 /* LaunchScreen.storyboard in Resources */,
+				E58F62F020AEE34D003578DE /* Genre.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,11 +317,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SoundCould/Pods-SoundCould-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 			);
@@ -286,15 +370,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E50410F320AEACE90028CC24 /* Genre.swift in Sources */,
+				E5E5134F20AFBDD1002A88E5 /* PlayViewController.swift in Sources */,
 				E51FBCA520AD537500CAECB8 /* AppDelegate.swift in Sources */,
-				E5CDA5F720B6C4AE00C0A56E /* Key.swift in Sources */,
+				E50410EF20AEA4480028CC24 /* CellGenesHome.swift in Sources */,
+				E53DD52520BEC47800A700E1 /* Key.swift in Sources */,
 				E5DA374E20AD5F3400466C8A /* DataManager.swift in Sources */,
+				E58F62F220AEE587003578DE /* GenreViewController.swift in Sources */,
 				E5DA375220AD8E4800466C8A /* DataTrack.swift in Sources */,
 				E5DA374C20AD5E3000466C8A /* DataGenres.swift in Sources */,
-				E5DA375020AD5FA400466C8A /* URLSessionAPI.swift in Sources */,
 				E50410E120AE74940028CC24 /* HomeViewController.swift in Sources */,
+				E50410EB20AE860C0028CC24 /* CellSongGenes.swift in Sources */,
 				E55CCDD720B2CA28006E87D9 /* UIimageView+loadImg.swift in Sources */,
+				E58F62F620AEE862003578DE /* GenreCell.swift in Sources */,
+				E53DD52420BEC47800A700E1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +518,7 @@
 			baseConfigurationReference = 6FF8F2C9180FF1B95025F1F0 /* Pods-SoundCould.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SoundCould/SoundCould.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 93L9L9RF27;
 				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
@@ -446,6 +535,7 @@
 			baseConfigurationReference = CE9D30A3B38B1A1C67356D26 /* Pods-SoundCould.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SoundCould/SoundCould.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 93L9L9RF27;
 				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
