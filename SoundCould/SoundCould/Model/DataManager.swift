@@ -1,5 +1,5 @@
 //
-//  DataManager.swift
+//      
 //  SoundCould
 //
 //  Created by nguyen.van.bao on 17/05/2018.
@@ -47,7 +47,6 @@ class DataManager: NSObject {
                                 case .failure:
                                     completion(nil)
                                 }
-                                
             }
         }
     }
@@ -91,24 +90,32 @@ class DataManager: NSObject {
                 self.dicTrackGenre.updateValue(songs, forKey: name)
                 completionHandler(self.dicTrackGenre)
             }
-            
         }
     }
-    func downloadTrack(urlTrack: String, nameTrack: String,
+    func downloadTrack(urldetailTrack: String, nameTrack: String, isIMG: Bool?,
                        completion: @escaping (_ trackPath: String) -> Void) {
-        let urlTrackDown = urlTrack + Key.pathTrack
-        guard let audioUrl = URL(string: urlTrackDown), let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+        var nameSave = ""
+        var urldetail = ""
+        if isIMG == true {
+            urldetail = urldetailTrack.replacingOccurrences(of: "large.jpg", with: "t500x500.jpg",
+                                                            options: .literal, range: nil)
+            nameSave = nameTrack + ".jpg"
+        } else {
+            urldetail = urldetailTrack + Key.linkPlay
+            nameSave = nameTrack + ".mp3"
+        }
+        guard let url = URL(string: urldetail),
+            let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory,
+                                                                  in: .userDomainMask).first else {
             return
         }
-        // lets create your destination file url
-        let destinationUrl = documentsDirectoryURL.appendingPathComponent(nameTrack)
-        print(destinationUrl)
-        // to check if it exists before downloading it
+        let destinationUrl = documentsDirectoryURL.appendingPathComponent(nameSave)
+
         if FileManager.default.fileExists(atPath: destinationUrl.path) {
             print("check path err")
             return
         } else {
-            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, _, error) -> Void in
+            URLSession.shared.downloadTask(with: url, completionHandler: { (location, _, error) -> Void in
                 guard let location = location, error == nil else { return }
                 do {
                     try FileManager.default.moveItem(at: location, to: destinationUrl)
@@ -119,6 +126,5 @@ class DataManager: NSObject {
                 }
             }).resume()
         }
-        
     }
 }

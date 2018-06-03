@@ -53,6 +53,7 @@ extension CellGenesHome: UICollectionViewDataSource {
             print("data nil")
             return
         }
+
         delegate.didSelectItemAtCellGrense(dataSong: arrSongs[ indexPath.row ], arrDataSongs: arrSongs)
     }
 }

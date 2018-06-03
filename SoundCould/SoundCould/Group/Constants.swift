@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 struct Constant {
     static let numberInSection = 5
     static let numberInSectionTable = 1

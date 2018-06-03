@@ -11,9 +11,10 @@ import AVFoundation
 import Alamofire
 import AVKit
 import MediaPlayer
-
+protocol ProtocolLoadSongOFF: class {
+    func loadSongOff()
+}
 class PlayViewController: UIViewController {
-    
     @IBOutlet private weak var btnPlay: UIButton!
     @IBOutlet private weak var btnNext: UIButton!
     @IBOutlet private weak var btnBack: UIButton!
@@ -28,18 +29,22 @@ class PlayViewController: UIViewController {
     @IBOutlet private weak var lblPlayCount: UILabel!
     @IBOutlet private weak var lblLikeCount: UILabel!
     @IBOutlet private weak var timeCompletion: UILabel!
+    weak var delegateOff: ProtocolLoadSongOFF?
     enum LoopSong: Int {
         case nonLoop = 0
         case loopOne = 1
         case loopAll = 2
         case shuffle = 3
     }
+    var patchIMG = ""
+    var patchMP3 = ""
     var arrDataSong = [DataTrack]()
     var player: AVPlayer?
     var audioPlayer: AVAudioPlayer?
     var timer: Timer?
     var indexSong = 0
     var isPlay = false
+    var playerItem: AVPlayerItem?
     var activityLoad  = UIActivityIndicatorView()
     var loopPlaySong = LoopSong.nonLoop
     var isDownload = false
@@ -51,6 +56,7 @@ class PlayViewController: UIViewController {
     }
     
     @IBAction func tapOutScreenPlay(_ sender: UIButton) {
+        self.delegateOff?.loadSongOff()
         player?.pause()
         player = nil
         self.dismiss(animated: true)
@@ -61,7 +67,7 @@ class PlayViewController: UIViewController {
         case .shuffle:
             loopPlaySong = .nonLoop
             self.settingButton(index: indexSong)
-            self.btnRepLay.setImage(UIImage(named: "like"), for: .normal)
+            self.btnRepLay.setImage(UIImage(named: "music_timeline"), for: .normal)
             print(loopPlaySong)
         case .loopOne:
             loopPlaySong = .loopAll
@@ -82,6 +88,12 @@ class PlayViewController: UIViewController {
     }
     
     @IBAction func tapDowTrack(_ sender: UIButton) {
+        print("download")
+        if isDownload {
+            isDownload = false
+            self.btnDown.isEnabled = false
+            self.downloadTrack(indexDow: indexSong)
+        }
     }
     
     @IBAction func btnPlay(_ sender: UIButton) {
@@ -124,68 +136,92 @@ class PlayViewController: UIViewController {
         activityLoad.startAnimating()
         self.settingButton(isEnable: false)
         self.settingButton(index: indexSong)
-        guard let dataLinkDownTrack = dataTrack.downloadUrl, let dataLinkDownImg = dataTrack.artworkUrl else {
-            self.btnDown.isEnabled = false
-            return
-        }
-        if self.btnDown.isEnabled == true {
-            self.dowDataTrack(dataLinkdown: dataLinkDownTrack, dataTitle: dataLinkDownImg)
+        if dataTrack.downloadable == true, dataTrack.downloadUrl != nil, dataTrack.artworkUrl != nil {
+           settingDow()
         }
         guard let link =  dataTrack.artworkUrl,
             let favoCount = dataTrack.favoritingsCount,
             let title = dataTrack.title,
             let name = dataTrack.userName,
             let playCount = dataTrack.playbackCount else {
-                return
+            return
         }
-        self.imgBackgoundPlay.setImageFromURL(urlLink: link)
         self.trackTitle.text = title
         self.singerName.text = name
         self.lblLikeCount.text = "\(self.mathPlayLikeCount(number: favoCount))"
         self.lblPlayCount.text = "\(self.mathPlayLikeCount(number: playCount))"
         guard let url = dataTrack.streamUrl else {
-            return
-        }
-        guard let linkPlayer = URL(string: "\(url)\(Key.linkPlay)") else {
-            return
-        }
-        let downloadSong = DispatchGroup()
-        downloadSong.enter()
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let `self` = self else {
+            return }
+        if url.checkcontains(find: ".mp3") == true {
+            guard let title = dataTrack.title, let path = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                                                              .userDomainMask, true).first else {
+                                                                                                return
+            }
+            let fileName = title + ".jpg"
+            let image = UIImage(contentsOfFile: path + "/" + fileName)
+            self.imgBackgoundPlay.image = image
+            let fileTrack = title + ".mp3"
+            print(fileTrack)
+            let urlTrack = URL(fileURLWithPath: path + "/" + fileTrack)
+            print(urlTrack);player = AVPlayer(url: urlTrack);player?.play()
+            guard let getSeconds = (self.player?.currentItem?.asset.duration) else {
+                return}
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                MPMediaItemPropertyTitle: title,
+                MPMediaItemPropertyArtist: name ]
+            UIApplication.shared.beginReceivingRemoteControlEvents()
+            self.becomeFirstResponder()
+            self.btnPlay.setBackgroundImage(UIImage(named: "stop"), for: .normal)
+            self.timeCompletion.text = self.timeFormat(time: Float(CMTimeGetSeconds(getSeconds)))
+            self.sliderAudio.maximumValue = Float(CMTimeGetSeconds(getSeconds))
+            self.timeCurrent.text = "0:0"
+            self.timer?.invalidate()
+            self.timer = nil
+            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self,
+                                              selector: #selector(self.getCurrentime), userInfo: nil, repeats: true)
+            self.settingButton(isEnable: true)
+            self.activityLoad.stopAnimating()
+        } else {
+            guard let linkPlayer = URL(string: "\(url)\(Key.linkPlay)") else {
                 return
             }
-            self.player = AVPlayer(url: linkPlayer)
-            self.player?.play()
-            downloadSong.leave()
-            downloadSong.wait()
-            DispatchQueue.main.async { [weak self] in
-                guard let this = self, let getSeconds = (this.player?.currentItem?.asset.duration) else {
+            self.imgBackgoundPlay.setImageFromURL(urlLink: link)
+            let downloadSong = DispatchGroup()
+            downloadSong.enter()
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                guard let `self` = self else {
                     return
                 }
-                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-                    MPMediaItemPropertyTitle: title,
-                    MPMediaItemPropertyArtist: name
-                ]
-                UIApplication.shared.beginReceivingRemoteControlEvents()
-                this.becomeFirstResponder()
-                this.btnPlay.setBackgroundImage(UIImage(named: "stop"), for: .normal)
-                this.timeCompletion.text = this.timeFormat(time: Float(CMTimeGetSeconds(getSeconds)))
-                this.sliderAudio.maximumValue = Float(CMTimeGetSeconds(getSeconds))
-                this.timeCurrent.text = "0:0"
-                this.timer?.invalidate()
-                this.timer = nil
-                this.timer = Timer.scheduledTimer(timeInterval: 0.01, target: this,
-                                                  selector: #selector(this.getCurrentime), userInfo: nil, repeats: true)
-                this.settingButton(isEnable: true)
-                this.activityLoad.stopAnimating()
+                self.player = AVPlayer(url: linkPlayer)
+                self.player?.play()
+                downloadSong.leave()
+                downloadSong.wait()
+                DispatchQueue.main.async { [weak self] in
+                    guard let this = self, let getSeconds = (this.player?.currentItem?.asset.duration) else {
+                        return}
+                    MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                        MPMediaItemPropertyTitle: title,
+                        MPMediaItemPropertyArtist: name ]
+                    UIApplication.shared.beginReceivingRemoteControlEvents()
+                    this.becomeFirstResponder()
+                    this.btnPlay.setBackgroundImage(UIImage(named: "stop"), for: .normal)
+                    this.timeCompletion.text = this.timeFormat(time: Float(CMTimeGetSeconds(getSeconds)))
+                    this.sliderAudio.maximumValue = Float(CMTimeGetSeconds(getSeconds))
+                    this.timeCurrent.text = "0:0"
+                    this.timer?.invalidate()
+                    this.timer = nil
+                    this.timer = Timer.scheduledTimer(timeInterval: 0.01, target: this,
+                                                      selector: #selector(this.getCurrentime), userInfo: nil, repeats: true)
+                    this.settingButton(isEnable: true)
+                    this.activityLoad.stopAnimating()
+                }
             }
         }
     }
 }
 
 extension PlayViewController {
-    private func settingButton(index: Int?) {
+    func settingButton(index: Int?) {
         switch index {
         case 0:
             self.settingBtnBackNext(btn: btnBack)
@@ -196,7 +232,8 @@ extension PlayViewController {
             btnBack.isHidden = false
         }
     }
-    private func settingBtnBackNext(btn: UIButton) {
+    
+    func settingBtnBackNext(btn: UIButton) {
         print(loopPlaySong)
         switch loopPlaySong {
         case LoopSong.loopOne:
@@ -233,18 +270,13 @@ extension PlayViewController {
         }
     }
     
-    private func timeFormat(time: Float) -> String {
-        let min = Int(time / 60)
-        let sec = Int(time.truncatingRemainder(dividingBy: 60))
-        return "\(min):\(sec)"
-    }
-    
     func setUIPlay(dataTrack: DataTrack, arrDataSongs: [DataTrack]) {
         arrDataSong = arrDataSongs
         for (index, item) in arrDataSongs.enumerated() where item.userName == dataTrack.userName {
             self.indexSong = index
         }
         self.setUI(dataTrack: dataTrack)
+        print(arrDataSongs.count)
     }
     
     private func loopOne() {
@@ -257,7 +289,7 @@ extension PlayViewController {
         }
     }
     
-     private func shuffleSong() {
+    private func shuffleSong() {
         let randomIndex = Int(arc4random_uniform(UInt32(arrDataSong.count )))
         self.indexSong = randomIndex
         setUI(dataTrack: arrDataSong[randomIndex])
@@ -359,10 +391,7 @@ extension PlayViewController {
                 case .remoteControlPreviousTrack:
                     self.backSong()
                 default:
-                    break
-                }
-            }
-        }
+                    break}}}
     }
     
     private func configPlayView() {
@@ -374,7 +403,9 @@ extension PlayViewController {
         self.btnRepLay.setImage(UIImage(named: "like"), for: .normal)
         self.btnPlay.setBackgroundImage(UIImage(named: "Play"), for: .normal)
         self.btnDown.isEnabled = false
+        self.btnDown.isHidden = true
         self.sliderAudio.setThumbImage(UIImage(named: "music_timeline"), for: .normal)
+        self.btnRepLay.setImage(UIImage(named: "music_timeline"), for: .normal)
     }
     
     private func settingButton(isEnable: Bool) {
@@ -382,11 +413,6 @@ extension PlayViewController {
         btnBack.isEnabled = isEnable
         sliderAudio.isEnabled = isEnable
         btnPlay.isEnabled = isEnable
-    }
-    
-    private func dowDataTrack(dataLinkdown: String, dataTitle: String) {
-        DataManager.sharedInstance.downloadTrack(urlTrack: dataLinkdown, nameTrack: dataTitle) { (data) in
-        }
     }
     
     private func checkStatusButtonFinishSong() {
@@ -408,22 +434,50 @@ extension PlayViewController {
         } catch {
         }
     }
-    private func mathPlayLikeCount(number: Int) -> String {
-        var resultCount: String!
-        var key = 1000
-        var result = number / key
-        if number < key {
-            resultCount = "\(number)"
-        } else if result < key && result > 0 {
-            resultCount = "\(result)K"
-        } else {
-            let tam = result % key
-            result /= 1000
-            key *= 1000
-            if result < key && result > 0 {
-                resultCount = "\(result)M\(tam)"
+    
+    func downloadTrack(indexDow: Int) {
+        guard let ulrDetailTrack = arrDataSong[indexDow].downloadUrl,
+            let nameTrack = arrDataSong[indexDow].title,
+            let ulrImgTrak = arrDataSong[indexDow].artworkUrl, let nameSinger = arrDataSong[indexDow].userName else {
+                return
+        }
+        DataManager.sharedInstance.downloadTrack(urldetailTrack: ulrDetailTrack,
+                                                 nameTrack: nameTrack,
+                                                 isIMG: false) { [weak self]( patchMP3 ) in
+            guard let `self` = self else {
+                return
+            }
+            self.patchMP3 = patchMP3
+            DataManager.sharedInstance.downloadTrack(urldetailTrack: ulrImgTrak,
+                                                     nameTrack: nameTrack,
+                                                     isIMG: true) { [weak self] (patchIMG) in
+                guard let `self` = self, let nameCheck = self.arrDataSong[indexDow].title  else {
+                    return
+                }
+                self.patchIMG = patchIMG
+                if CoreDBManager.sharedInstance.isExist(nameTrack: nameCheck) == nil {
+                CoreDBManager.sharedInstance.insertTrack(imgPath: patchIMG,
+                                                        trackPath: patchMP3,
+                                                         nameSinger: nameSinger,
+                                                         titleTrack: nameTrack) { [weak self] (bool) in
+                    if bool == true {
+                        guard let `self` = self else {
+                            return
+                        }
+                        print("insert")
+                        DispatchQueue.main.async {
+                            self.btnDown.isHidden = true
+                            self.delegateOff?.loadSongOff()
+                        }
+                    }
+                }
             }
         }
-        return resultCount
+      }
+    }
+    func settingDow() {
+        self.btnDown.isEnabled = true
+        isDownload = true
+        self.btnDown.isHidden = false
     }
 }

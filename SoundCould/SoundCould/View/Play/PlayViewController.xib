@@ -91,14 +91,14 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0z-6o-weT">
                     <rect key="frame" x="316.5" y="599" width="38.5" height="38.5"/>
-                    <state key="normal" image="dow" backgroundImage="music_timeline"/>
+                    <state key="normal" image="dow"/>
                     <connections>
                         <action selector="tapDowTrack:" destination="-1" eventType="touchUpInside" id="Vb4-Om-mWe"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfX-sq-g0s">
+                <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfX-sq-g0s">
                     <rect key="frame" x="252" y="598.5" width="38.5" height="38.5"/>
-                    <state key="normal" backgroundImage="music_timeline">
+                    <state key="normal">
                         <color key="titleShadowColor" red="0.50370255332831104" green="1" blue="0.2728860876292577" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </state>
                     <connections>
@@ -239,7 +239,6 @@
         <image name="back-root" width="256" height="256"/>
         <image name="dow" width="85" height="85"/>
         <image name="like" width="85" height="85"/>
-        <image name="music_timeline" width="25" height="25"/>
         <image name="next" width="20" height="28"/>
         <image name="playcount" width="85" height="85"/>
     </resources>

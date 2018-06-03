@@ -9,7 +9,7 @@
 import UIKit
 import ObjectMapper
 
-class DataTrack: Mappable {
+class DataTrack: NSObject, Mappable {
     var playbackCount: Int?
     var title: String?
     var userName: String?
@@ -17,9 +17,10 @@ class DataTrack: Mappable {
     var streamUrl: String?
     var artworkUrl: String?
     var favoritingsCount: Int?
+    var downloadable: Bool?
     required init?(map: Map) {
     }
-
+    
     func mapping(map: Map) {
         playbackCount <- map["playback_count"]
         title <- map["title"]
@@ -28,5 +29,15 @@ class DataTrack: Mappable {
         artworkUrl <- map["artwork_url"]
         streamUrl <- map["stream_url"]
         favoritingsCount <- map["favoritings_count"]
+        downloadable <- map["downloadable"]
+    }
+    
+    init(title: String?, userName: String?, artworkUrl: String?, streamUrl: String?) {
+        self.title = title
+        self.userName = userName
+        self.artworkUrl = artworkUrl
+        self.streamUrl = streamUrl
+        self.favoritingsCount = 0
+        self.playbackCount = 0
     }
 }

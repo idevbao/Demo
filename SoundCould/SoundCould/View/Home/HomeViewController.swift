@@ -33,7 +33,6 @@ class HomeViewController: UIViewController {
                                 }
         }
         self.configTableViewCell()
-        configNaviBar()
     }
 }
 
@@ -102,12 +101,6 @@ extension HomeViewController: ProtocolCellGene {
     private func configTableViewCell() {
         let nibName = UINib(nibName: "CellGenesHome", bundle: nil)
         self.homeTableView.register(nibName, forCellReuseIdentifier: "CellGenesHome")
-    }
-    
-    private func configNaviBar() {
-        self.navigationController?.navigationBar.topItem?.title = " SoundCloud "
-        self.navigationController?.navigationBar.tintColor = .orange
-        self.navigationController?.navigationBar.backgroundColor = .white
     }
     
     @objc func tapGenre(_ sender: UIButton) {
