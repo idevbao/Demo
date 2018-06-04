@@ -16,7 +16,8 @@ struct Constant {
     static let numberInSections = 5
     static let numberOfSections = 1
     static let quantityTracks = 5
-    static let heightForHeaderInSection: CGFloat = 50
-    static let heightForFooterInSection: CGFloat = 10
+    static let heightForHeaderInSection: CGFloat = 100
+    static let heightForFooterInSection: CGFloat = 20
     static let marginCollectionView: CGFloat = 5
+    static let btnShowListGenre: CGFloat = 50
 }

@@ -14,13 +14,16 @@ class HomeViewController: UIViewController {
     var arrayAllGenre = [String]()
     var dataManager = DataManager()
     var nameTitleGenre = [String]()
+    let sizeFont: CGFloat = 35
+    let sizeheightCell: CGFloat = 3.2
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTitleGenre = ["Dance & EDM", "PoP", "R&B", "Alternative Rock", "County"]
-        arrayAllGenre = ["danceedm", "pop", "alternativerock", "rbsoul", "country" ]
+        nameTitleGenre = ["Dance & EDM", "PoP", "R&B", "Alternative Rock", "County", "All - music", "All - Audio"]
+        arrayAllGenre = ["danceedm", "pop", "alternativerock", "rbsoul", "country", "all-music", "all-audio"]
+        
         dataManager.getDataID(arrayGenre: arrayAllGenre,
-                              quantity: Constant.quantityTrack) { [weak self](data) in
+                              quantity: Constant.quantityTrack) { [weak self] (data) in
                                 guard let `self` = self, let dataSong = data else {
                                     return
                                 }
@@ -30,6 +33,7 @@ class HomeViewController: UIViewController {
                                 }
         }
         self.configTableViewCell()
+        configNaviBar()
     }
 }
 
@@ -56,9 +60,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return Constant.numberInSection
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.size.height/3.5
+        return self.view.frame.size.height / sizeheightCell
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -66,32 +70,44 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView =
-            UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width,
-                                 height: Constant.heightForHeaderInSection - (2) * Constant.marginCollectionView))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width:
+            tableView.bounds.size.width,
+            height: Constant.heightForHeaderInSection))
         headerView.backgroundColor = .white
-        let btnShowListGenre = UIButton(frame: CGRect(x: 10, y: 10, width: tableView.bounds.size.width, height: 28))
+        let btnShowListGenre = UIButton(frame: CGRect(x: 10, y: 5, width:
+            tableView.bounds.size.width, height: Constant.btnShowListGenre))
         btnShowListGenre.setTitle("\(self.nameTitleGenre[section])", for: .normal)
-        btnShowListGenre.titleLabel?.font = btnShowListGenre.titleLabel?.font.withSize(25)
-        btnShowListGenre.setTitleColor(.gray, for: .normal)
+        btnShowListGenre.titleLabel?.font = UIFont.boldSystemFont(ofSize: sizeFont)
+        btnShowListGenre.setTitleColor(.black, for: .normal)
         btnShowListGenre.contentHorizontalAlignment = .left
         btnShowListGenre.tag = section
         btnShowListGenre.addTarget(self, action: #selector(self.tapGenre(_:)), for: .touchUpInside)
         headerView.addSubview(btnShowListGenre)
+        let lblListGenre = UIButton(frame: CGRect(x: 10, y: 55, width:
+            tableView.bounds.size.width, height: Constant.btnShowListGenre / 2))
+        lblListGenre.setTitle("The most played tracks on SoundCloud this week", for: .normal)
+        lblListGenre.titleLabel?.font = UIFont.boldSystemFont(ofSize: sizeFont / 2.5)
+        lblListGenre.setTitleColor(.gray, for: .normal)
+        lblListGenre.contentHorizontalAlignment = .left
+        headerView.addSubview(lblListGenre)
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return  Constant.heightForHeaderInSection
     }
 }
 
 extension HomeViewController: ProtocolCellGene {
-    func configTableViewCell() {
+    private func configTableViewCell() {
         let nibName = UINib(nibName: "CellGenesHome", bundle: nil)
         self.homeTableView.register(nibName, forCellReuseIdentifier: "CellGenesHome")
     }
     
-    func configNaviBar() {
+    private func configNaviBar() {
         self.navigationController?.navigationBar.topItem?.title = " SoundCloud "
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.navigationBar.tintColor = .orange
+        self.navigationController?.navigationBar.backgroundColor = .white
     }
     
     @objc func tapGenre(_ sender: UIButton) {
@@ -104,9 +120,9 @@ extension HomeViewController: ProtocolCellGene {
         genreView.nameGrenre = arrayAllGenre[sender.tag]
     }
     
-    func didSelectItemAtCellGrense(dataSong: DataTrack, arr: [DataTrack]) {
+    func didSelectItemAtCellGrense(dataSong: DataTrack, arrDataSongs: [DataTrack]) {
         let playViewController = PlayViewController(nibName: "PlayViewController", bundle: nil)
         self.present(playViewController, animated: false, completion: nil)
-        playViewController.setUIPlay(dataTrack: dataSong)
+        playViewController.setUIPlay(dataTrack: dataSong, arrDataSongs: arrDataSongs)
     }
 }

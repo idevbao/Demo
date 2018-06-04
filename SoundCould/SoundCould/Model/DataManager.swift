@@ -8,11 +8,10 @@
 
 import UIKit
 import Alamofire
-
 class DataManager: NSObject {
     static let sharedInstance = DataManager()
-    var dicIDGenre = [String: [DataGenres]] ()
-    var dicTrackGenre = [String: [DataTrack]] ()
+    var dicIDGenre = [String: [DataGenres]]()
+    var dicTrackGenre = [String: [DataTrack]]()
     var params = [String: Any]()
     func getDataID(arrayGenre: [String], quantity: Int,
                    completion: @escaping ([String: [DataTrack]]?) -> Void ) {
@@ -94,5 +93,32 @@ class DataManager: NSObject {
             }
             
         }
+    }
+    func downloadTrack(urlTrack: String, nameTrack: String,
+                       completion: @escaping (_ trackPath: String) -> Void) {
+        let urlTrackDown = urlTrack + Key.pathTrack
+        guard let audioUrl = URL(string: urlTrackDown), let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        // lets create your destination file url
+        let destinationUrl = documentsDirectoryURL.appendingPathComponent(nameTrack)
+        print(destinationUrl)
+        // to check if it exists before downloading it
+        if FileManager.default.fileExists(atPath: destinationUrl.path) {
+            print("check path err")
+            return
+        } else {
+            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, _, error) -> Void in
+                guard let location = location, error == nil else { return }
+                do {
+                    try FileManager.default.moveItem(at: location, to: destinationUrl)
+                    print("File moved to documents folder")
+                    completion(destinationUrl.path)
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }).resume()
+        }
+        
     }
 }

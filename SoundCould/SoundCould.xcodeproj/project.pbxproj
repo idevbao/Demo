@@ -14,10 +14,10 @@
 		E50410EC20AE860C0028CC24 /* CellSongGenes.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50410EA20AE860C0028CC24 /* CellSongGenes.xib */; };
 		E50410EF20AEA4480028CC24 /* CellGenesHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50410ED20AEA4480028CC24 /* CellGenesHome.swift */; };
 		E50410F020AEA4480028CC24 /* CellGenesHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50410EE20AEA4480028CC24 /* CellGenesHome.xib */; };
+		E50410F320AEACE90028CC24 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50410F220AEACE90028CC24 /* Constants.swift */; };
+		E50410F520AEADAD0028CC24 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50410F420AEADAD0028CC24 /* Key.swift */; };
 		E51FBCA520AD537500CAECB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FBCA420AD537500CAECB8 /* AppDelegate.swift */; };
 		E51FBCAF20AD537600CAECB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E51FBCAD20AD537600CAECB8 /* LaunchScreen.storyboard */; };
-		E53DD52420BEC47800A700E1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DD52220BEC47800A700E1 /* Constants.swift */; };
-		E53DD52520BEC47800A700E1 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DD52320BEC47800A700E1 /* Key.swift */; };
 		E55CCDD720B2CA28006E87D9 /* UIimageView+loadImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CCDD620B2CA28006E87D9 /* UIimageView+loadImg.swift */; };
 		E58F62F020AEE34D003578DE /* Genre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E58F62EF20AEE34D003578DE /* Genre.storyboard */; };
 		E58F62F220AEE587003578DE /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F62F120AEE587003578DE /* GenreViewController.swift */; };
@@ -41,12 +41,12 @@
 		E50410EA20AE860C0028CC24 /* CellSongGenes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellSongGenes.xib; sourceTree = "<group>"; };
 		E50410ED20AEA4480028CC24 /* CellGenesHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellGenesHome.swift; sourceTree = "<group>"; };
 		E50410EE20AEA4480028CC24 /* CellGenesHome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellGenesHome.xib; sourceTree = "<group>"; };
+		E50410F220AEACE90028CC24 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E50410F420AEADAD0028CC24 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		E51FBCA120AD537500CAECB8 /* SoundCould.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundCould.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E51FBCA420AD537500CAECB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E51FBCAE20AD537600CAECB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E51FBCB020AD537600CAECB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E53DD52220BEC47800A700E1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		E53DD52320BEC47800A700E1 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		E55CCDD620B2CA28006E87D9 /* UIimageView+loadImg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIimageView+loadImg.swift"; sourceTree = "<group>"; };
 		E58F62EF20AEE34D003578DE /* Genre.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Genre.storyboard; sourceTree = "<group>"; };
 		E58F62F120AEE587003578DE /* GenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
@@ -104,9 +104,9 @@
 		E50410F120AEACB80028CC24 /* Group */ = {
 			isa = PBXGroup;
 			children = (
-				E53DD52220BEC47800A700E1 /* Constants.swift */,
-				E53DD52320BEC47800A700E1 /* Key.swift */,
+				E50410F220AEACE90028CC24 /* Constants.swift */,
 				E55CCDD620B2CA28006E87D9 /* UIimageView+loadImg.swift */,
+				E50410F420AEADAD0028CC24 /* Key.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -119,6 +119,7 @@
 				E51FBCA220AD537500CAECB8 /* Products */,
 				CE6C88219F9AA145BBCEF02F /* Pods */,
 				9F1351B3862572DF36B266AA /* Frameworks */,
+				E57A350020C128D500FEC873 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -188,6 +189,13 @@
 				E5DA374D20AD5F3300466C8A /* DataManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E57A350020C128D500FEC873 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		E58F62EA20AEE1EC003578DE /* Genre */ = {
@@ -370,10 +378,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E50410F320AEACE90028CC24 /* Constants.swift in Sources */,
+				E50410F520AEADAD0028CC24 /* Key.swift in Sources */,
 				E5E5134F20AFBDD1002A88E5 /* PlayViewController.swift in Sources */,
 				E51FBCA520AD537500CAECB8 /* AppDelegate.swift in Sources */,
 				E50410EF20AEA4480028CC24 /* CellGenesHome.swift in Sources */,
-				E53DD52520BEC47800A700E1 /* Key.swift in Sources */,
 				E5DA374E20AD5F3400466C8A /* DataManager.swift in Sources */,
 				E58F62F220AEE587003578DE /* GenreViewController.swift in Sources */,
 				E5DA375220AD8E4800466C8A /* DataTrack.swift in Sources */,
@@ -382,7 +391,6 @@
 				E50410EB20AE860C0028CC24 /* CellSongGenes.swift in Sources */,
 				E55CCDD720B2CA28006E87D9 /* UIimageView+loadImg.swift in Sources */,
 				E58F62F620AEE862003578DE /* GenreCell.swift in Sources */,
-				E53DD52420BEC47800A700E1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
